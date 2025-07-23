@@ -21,7 +21,7 @@ export async function handleLogin(prevState: any, formData: FormData) {
 	return { success: true };
 }
 
-export async function handleSignup(formData: FormData, prevState: any) {
+export async function handleSignup(prevState: any, formData: FormData) {
 	// Get the form data
 	const email = formData.get("email") as string;
 	const password = formData.get("password") as string;
