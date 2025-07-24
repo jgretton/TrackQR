@@ -7,6 +7,7 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
+
 const initialState: LoginActionResponse = {
 	success: false,
 	message: "",
@@ -14,7 +15,6 @@ const initialState: LoginActionResponse = {
 
 export default function LoginForm() {
 	const [state, action, isPending] = useActionState(handleLogin, initialState);
-	console.log(state);
 
 	return (
 		<form action={action} className="grid gap-5 mt-10" autoComplete="on">
