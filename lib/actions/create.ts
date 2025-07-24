@@ -7,6 +7,8 @@ import { createClient } from "@/utils/supabase/server";
 import { nanoid } from "nanoid";
 
 import { PrismaClient } from "@/app/generated/prisma";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const prisma = new PrismaClient();
 
@@ -25,7 +27,6 @@ export async function handleQrCreate(
 	const validationData = createQRSchema.safeParse(qrFormData);
 
 	if (!validationData.success) {
-		console.log(validationData);
 		return {
 			success: false,
 			message: "Please fix the errors in the form",
@@ -38,11 +39,18 @@ export async function handleQrCreate(
 	const { data } = await supabase.auth.getClaims();
 	const userId = data?.claims.sub;
 
+	if (!userId) {
+		return {
+			success: false,
+			message: "User not authenticated",
+		};
+	}
+
 	// Generate unique redirect code
 	const redirectCode = nanoid(10); // Nice short length
 
 	try {
-		await prisma.qrCode.create({
+		const data = await prisma.qrCode.create({
 			data: {
 				name: qrFormData.name,
 				destination_url: qrFormData.destination,
@@ -55,7 +63,16 @@ export async function handleQrCreate(
 				user_id: userId,
 			},
 		});
-	} catch (error) {
+
+		const { id } = data;
+		revalidatePath("/", "layout");
+		redirect(`/dashboard/qrcodes/${id}`);
+	} catch (error: any) {
+		// If it's a redirect, let it through
+		if (error?.message?.includes('NEXT_REDIRECT')) {
+			throw error;
+		}
+		
 		console.log("Database error:", error);
 		return {
 			success: false,
