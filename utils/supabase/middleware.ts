@@ -31,27 +31,27 @@ export async function updateSession(request: NextRequest) {
 
 	// refreshing the auth token
 
-	const {
-		data: { user },
-	} = await supabase.auth.getUser();
+	const { data } = await supabase.auth.getClaims();
+	const user = data?.claims;
+
 	if (
 		user &&
 		(request.nextUrl.pathname.startsWith("/login") ||
-			request.nextUrl.pathname.startsWith("/signup"))
+			request.nextUrl.pathname.startsWith("/auth"))
 	) {
 		const url = request.nextUrl.clone();
 		url.pathname = "/dashboard";
 		return NextResponse.redirect(url);
 	}
 	if (
+		request.nextUrl.pathname !== "/" &&
 		!user &&
 		!request.nextUrl.pathname.startsWith("/login") &&
-		!request.nextUrl.pathname.startsWith("/auth") &&
-		!request.nextUrl.pathname.startsWith("/signup")
+		!request.nextUrl.pathname.startsWith("/auth")
 	) {
 		// no user, potentially respond by redirecting the user to the login page
 		const url = request.nextUrl.clone();
-		url.pathname = "/login";
+		url.pathname = "/auth/login";
 		return NextResponse.redirect(url);
 	}
 
