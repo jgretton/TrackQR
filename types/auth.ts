@@ -35,7 +35,8 @@ export interface SignUpActionResponse {
 export interface ValidationResponse {
 	success: boolean;
 	message: string;
-	errors?: string[];
-	inputs?: SignUpFormData;
+	errors?: any;
+	inputs?: any;
 	error?: string;
+	qrCodeId?: string;
 }
