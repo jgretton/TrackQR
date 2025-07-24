@@ -8,6 +8,8 @@ import {
 	SignUpActionResponse,
 	SignUpFormData,
 } from "@/types/auth";
+import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export async function handleLogin(
 	prevState: LoginActionResponse | null,
@@ -33,17 +35,17 @@ export async function handleLogin(
 	}
 
 	const supabase = await createClient();
-	const { data, error } = await supabase.auth.signInWithPassword(
-		validation.data
-	);
-
+	const { error } = await supabase.auth.signInWithPassword(validation.data);
 	if (error) {
-		console.log("Login error:", error.message);
-		return { error: error.message, inputs: loginData };
+		return {
+			success: false,
+			message: error.message,
+			errors: { message: error.message, code: error.code },
+			inputs: loginData,
+		};
 	}
-
-	console.log("Login success:", data.user?.email);
-	return { success: true };
+	revalidatePath("/", "layout");
+	redirect("/dashboard");
 }
 
 export async function handleSignup(
@@ -74,9 +76,17 @@ export async function handleSignup(
 
 	if (error) {
 		console.log("Signup Error", error.message);
-		return { error: error.message };
+		return {
+			success: false,
+			message: error.message,
+			error: error.message,
+			inputs: SignUpFormData,
+		};
 	}
 
 	console.log("signup success:", data.user?.email);
-	return { success: true };
+	return {
+		success: true,
+		message: "Account created successfully",
+	};
 }
