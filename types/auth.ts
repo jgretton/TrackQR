@@ -13,7 +13,13 @@ export interface LoginActionResponse {
 	message: string;
 	errors?: {
 		[K in keyof LoginFormData]?: string[];
-	};
+	} | AuthError;
+	inputs?: LoginFormData;
+}
+
+export interface AuthError {
+	message: string;
+	code?: string;
 }
 export interface SignUpActionResponse {
 	success: boolean;
@@ -21,4 +27,6 @@ export interface SignUpActionResponse {
 	errors?: {
 		[K in keyof SignUpFormData]?: string[];
 	};
+	inputs?: SignUpFormData;
+	error?: string;
 }
