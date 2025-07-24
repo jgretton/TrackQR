@@ -32,7 +32,7 @@ export default function CreateQrForm() {
 					autoComplete="off"
 					defaultValue={state?.inputs?.name}
 				/>
-				{state?.errors.name && (
+				{state?.errors?.name && (
 					<p className="text-sm text-red-500"> {state.errors.name}</p>
 				)}
 			</div>
@@ -48,7 +48,7 @@ export default function CreateQrForm() {
 					id="destination"
 					defaultValue={state?.inputs?.destination}
 				/>
-				{state?.errors.destination && (
+				{state?.errors?.destination && (
 					<p className="text-sm text-red-500"> {state.errors.destination}</p>
 				)}
 			</div>
