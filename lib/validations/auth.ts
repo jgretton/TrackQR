@@ -6,13 +6,12 @@ export const loginSchema = z.object({
 });
 export const signupSchema = z
 	.object({
-		email: z.email({ error: "Invalid Email" }),
+		email: z.email({ error: "Invalid Email" }).min(1, "This field is required"),
 		password: z
 			.string()
 			.min(8, { error: "Password should have minimum length of 8 characters" })
 			.regex(/^(?=.*[A-Z]).{8,}$/, {
-				error:
-					"Should Contain at least one uppercase letter and have a minimum length of 8 characters.",
+				error: "Password should Contain at least one uppercase letter",
 			}),
 		confirmPassword: z.string(),
 	})

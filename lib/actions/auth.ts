@@ -2,21 +2,34 @@
 
 import { createClient } from "@/utils/supabase/server";
 import { loginSchema, signupSchema } from "../validations/auth";
+import {
+	LoginActionResponse,
+	LoginFormData,
+	SignUpActionResponse,
+	SignUpFormData,
+} from "@/types/auth";
 
-export async function handleLogin(prevState: any, formData: FormData) {
+export async function handleLogin(
+	prevState: LoginActionResponse | null,
+	formData: FormData
+) {
+	await new Promise((resolve) => setTimeout(resolve, 1000));
+
 	// Get the form data
-	const loginData = {
+	const loginData: LoginFormData = {
 		email: formData.get("email") as string,
 		password: formData.get("password") as string,
 	};
 
 	const validation = loginSchema.safeParse(loginData);
 
-	console.log(validation);
 	if (!validation.success) {
-		// Validation failed
-		console.log(validation.error);
-		return { error: "Validation failed" };
+		return {
+			success: false,
+			message: "Please fix the errors in the form",
+			errors: validation.error.flatten().fieldErrors,
+			inputs: loginData,
+		};
 	}
 
 	const supabase = await createClient();
@@ -26,25 +39,33 @@ export async function handleLogin(prevState: any, formData: FormData) {
 
 	if (error) {
 		console.log("Login error:", error.message);
-		return { error: error.message };
+		return { error: error.message, inputs: loginData };
 	}
 
 	console.log("Login success:", data.user?.email);
 	return { success: true };
 }
 
-export async function handleSignup(prevState: any, formData: FormData) {
+export async function handleSignup(
+	prevState: SignUpActionResponse | null,
+	formData: FormData
+) {
+	await new Promise((resolve) => setTimeout(resolve, 1000));
 	// Get the form data
-	const signUpData = {
+	const SignUpFormData: SignUpFormData = {
 		email: formData.get("email") as string,
 		password: formData.get("password") as string,
 		confirmPassword: formData.get("confirmPassword") as string,
 	};
-	const validation = signupSchema.safeParse(signUpData);
+	const validation = signupSchema.safeParse(SignUpFormData);
 
 	if (!validation.success) {
-		console.log(validation.error);
-		return { error: validation.error };
+		return {
+			success: false,
+			message: "Please fix the errors in the form",
+			errors: validation.error.flatten().fieldErrors,
+			inputs: SignUpFormData,
+		};
 	}
 
 	const supabase = await createClient();
