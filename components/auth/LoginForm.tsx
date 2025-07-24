@@ -3,6 +3,10 @@
 import { handleLogin } from "@/lib/actions/auth";
 import { LoginActionResponse } from "@/types/auth";
 import { useActionState } from "react";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import Link from "next/link";
 const initialState: LoginActionResponse = {
 	success: false,
 	message: "",
@@ -15,47 +19,39 @@ export default function LoginForm() {
 	return (
 		<form action={action} className="grid gap-5 mt-10" autoComplete="on">
 			<div className="grid gap-1.5 ">
-				<label htmlFor="email" className="text-base font-normal text-gray-600">
-					Email
-				</label>
-				<input
+				<Label htmlFor="email">Email</Label>
+				<Input
 					type="email"
 					id="email"
 					name="email"
 					required
 					autoComplete="email"
 					defaultValue={state.inputs?.email}
-					className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
 				/>
 			</div>
 			<div className="grid gap-1.5 ">
-				<label
-					htmlFor="password"
-					className="text-base font-normal text-gray-600"
-				>
-					Password
-				</label>
-				<input
+				<Label htmlFor="password">Password</Label>
+				<Input
 					type="password"
 					id="password"
 					name="password"
 					required
 					autoComplete="current-password"
 					defaultValue={state.inputs?.password}
-					className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
 				/>
 
-				{state?.errors && typeof state.errors === 'object' && 'message' in state.errors && (
-					<p className="text-xs text-red-500">{state.errors.message}</p>
-				)}
+				{state?.errors &&
+					typeof state.errors === "object" &&
+					"message" in state.errors && (
+						<p className="text-xs text-red-500">{state.errors.message}</p>
+					)}
 			</div>
-			<button
-				type="submit"
-				className="bg-blue-600 text-white py-2 rounded-md"
-				disabled={isPending}
-			>
+			<Button type="submit" disabled={isPending} variant={"default"}>
 				{isPending ? "Logging in..." : "Login"}
-			</button>
+			</Button>
+			<div className="inline-flex gap-3">
+				<p>Dont have an account?</p> <Link href="/sign-up">Sign up</Link>
+			</div>
 		</form>
 	);
 }

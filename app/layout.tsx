@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Link from "next/link";
+import { AuthButton } from "@/components/auth/AuthButton";
 
 export const metadata: Metadata = {
 	title: "TrackQR",
@@ -17,8 +18,8 @@ export default function RootLayout({
 			<body className={`antialiased`}>
 				<nav className="flex gap-4">
 					<Link href={"/"}>Home</Link>
-					<Link href={"/login"}>Login</Link>
-					<Link href={"/signup"}>sign up</Link>
+					<Link href={"/dashboard"}>Dash</Link>
+					<AuthButton />
 				</nav>
 				{children}
 			</body>
