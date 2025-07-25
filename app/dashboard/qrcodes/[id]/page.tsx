@@ -18,7 +18,7 @@ export default async function SingleQrCodePage({
 	const { id } = await params;
 	const QRData = await fetchQRCode(id);
 
-	if (QRData.success === false) {
+	if (!QRData.success || !QRData.data) {
 		return <div>QR Code not found</div>;
 	}
 
