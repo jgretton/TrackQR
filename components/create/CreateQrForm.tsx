@@ -8,7 +8,7 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Loader, Loader2 } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
@@ -93,7 +93,13 @@ export default function CreateQrForm() {
 			</div>
 
 			<Button type="submit" variant={"default"} disabled={isPending}>
-				{isPending ? "Creating..." : "Create"}
+				{isPending ? (
+					<span className="inline-flex gap-2 items-center">
+						<Loader2 className="size-4 animate-spin" /> Creating
+					</span>
+				) : (
+					"Create"
+				)}
 			</Button>
 		</form>
 	);
