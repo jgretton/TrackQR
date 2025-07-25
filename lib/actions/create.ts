@@ -13,6 +13,27 @@ import { redirect } from "next/navigation";
 import QRCode from "qrcode";
 
 const prisma = new PrismaClient();
+async function generateUniqueRedirectCode(): Promise<string> {
+	let attempts = 0;
+	const maxAttempts = 10;
+
+	while (attempts < maxAttempts) {
+		const code = nanoid(10);
+
+		// Check if this code already exists
+		const existing = await prisma.qrCode.findUnique({
+			where: { redirect_code: code },
+		});
+
+		if (!existing) {
+			return code;
+		}
+
+		attempts++;
+	}
+
+	throw new Error("Unable to generate unique redirect code");
+}
 
 export async function handleQrCreate(
 	prevState: ValidationResponse | null,
@@ -49,7 +70,7 @@ export async function handleQrCreate(
 	}
 
 	// Generate unique redirect code
-	const redirectCode = nanoid(10); // Nice short length
+	const redirectCode = await generateUniqueRedirectCode();
 
 	const QRCodeGeneration = await QRCode.toDataURL(
 		`https://localhost:3000/r/${redirectCode}`
