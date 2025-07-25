@@ -33,11 +33,12 @@ export default function DashboardLayout({
 									Dashboard
 								</Link>
 								<Link
-									href="/dashboard/create"
-									className="text-gray-600 hover:text-gray-800"
+									href="/dashboard/qrcodes"
+									className="text-gray-600 hover:text-blue-800 "
 								>
-									Create QR Code
+									QrCodes
 								</Link>
+
 								<Link
 									href="/dashboard/analytics"
 									className="text-gray-600 hover:text-gray-800"
