@@ -16,7 +16,7 @@ datasource db {
 
 model QrCode {
   id              String   @id @default(cuid())
-  user_id         String   // References Supabase auth.users.id
+  user_id         String   // References Supabase auth.users.id - NO RELATION
   name            String   // User-friendly name
   destination_url String   // Where the QR code redirects to
   redirect_code   String   @unique // Unique short code for /r/abc123
