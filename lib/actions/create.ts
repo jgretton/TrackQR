@@ -10,6 +10,8 @@ import { PrismaClient } from "@/app/generated/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+import QRCode from "qrcode";
+
 const prisma = new PrismaClient();
 
 export async function handleQrCreate(
@@ -49,6 +51,10 @@ export async function handleQrCreate(
 	// Generate unique redirect code
 	const redirectCode = nanoid(10); // Nice short length
 
+	const QRCodeGeneration = await QRCode.toDataURL(
+		`https://localhost:3000/r/${redirectCode}`
+	);
+
 	try {
 		const data = await prisma.qrCode.create({
 			data: {
@@ -61,26 +67,24 @@ export async function handleQrCreate(
 				redirect_code: redirectCode,
 				is_active: true,
 				user_id: userId,
+				qr_image_data: QRCodeGeneration,
 			},
 		});
 
 		const { id } = data;
+
 		revalidatePath("/", "layout");
 		redirect(`/dashboard/qrcodes/${id}`);
 	} catch (error: any) {
 		// If it's a redirect, let it through
-		if (error?.message?.includes('NEXT_REDIRECT')) {
+		if (error?.message?.includes("NEXT_REDIRECT")) {
 			throw error;
 		}
-		
+
 		console.log("Database error:", error);
 		return {
 			success: false,
 			message: "Failed to create QR code",
 		};
 	}
-	return {
-		success: true,
-		message: "QR code created successfully",
-	};
 }

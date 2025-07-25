@@ -20,6 +20,7 @@ model QrCode {
   name            String   // User-friendly name
   destination_url String   // Where the QR code redirects to
   redirect_code   String   @unique // Unique short code for /r/abc123
+  qr_image_data   String?  // Base64 encoded QR code image
   created_at      DateTime @default(now())
   updated_at      DateTime @updatedAt
   expires_at      DateTime? // Null = no expiration
