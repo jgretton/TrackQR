@@ -14,7 +14,6 @@ const initialState: SignUpActionResponse = {
 export default function SignUpForm() {
 	const [state, action, isPending] = useActionState(handleSignup, initialState);
 
-	console.log(state);
 	return (
 		<form action={action} className="grid gap-5 mt-10" autoComplete="on">
 			<div className="grid gap-1.5 ">
