@@ -1,5 +1,4 @@
 import { QrCode } from "@/types/create";
-import QRCode from "qrcode";
 
 export function handleQrDownload(qrcode: QrCode) {
 	const base64Data = qrcode.qr_image_data; // "data:image/png;base64,iVBORw0KGgoAAAANS..."
