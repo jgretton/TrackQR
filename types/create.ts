@@ -3,6 +3,7 @@ export interface QRFormData {
 	destination: string;
 	expires_at?: string;
 	is_active?: boolean;
+	id?: string;
 }
 
 export interface QrCode {
