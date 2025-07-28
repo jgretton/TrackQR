@@ -10,6 +10,7 @@ import {
 } from "@/types/auth";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { invalidateUserSession } from "@/lib/auth/cached-auth";
 
 export async function handleLogin(
 	prevState: LoginActionResponse | null,
@@ -44,6 +45,9 @@ export async function handleLogin(
 			inputs: loginData,
 		};
 	}
+	
+	// Invalidate cached auth state after successful login
+	await invalidateUserSession();
 	revalidatePath("/", "layout");
 	redirect("/dashboard");
 }
@@ -85,8 +89,30 @@ export async function handleSignup(
 	}
 
 	console.log("signup success:", data.user?.email);
+	
+	// Invalidate cached auth state after successful signup
+	await invalidateUserSession();
+	
 	return {
 		success: true,
 		message: "Account created successfully",
 	};
+}
+
+/**
+ * Handle user logout with proper cache invalidation
+ */
+export async function handleLogout() {
+	const supabase = await createClient();
+	const { error } = await supabase.auth.signOut();
+	
+	if (error) {
+		console.error("Logout error:", error);
+		return;
+	}
+	
+	// Invalidate cached auth state after logout
+	await invalidateUserSession();
+	revalidatePath("/", "layout");
+	redirect("/auth/login");
 }

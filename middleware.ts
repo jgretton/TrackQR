@@ -6,5 +6,14 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-	matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
+	matcher: [
+		// Only run middleware on protected routes and auth routes
+		"/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+		"/dashboard/:path*",
+		"/auth/:path*",
+		"/qrcodes/:path*",
+		"/analytics/:path*",
+		// Still catch root for redirect logic
+		"/",
+	],
 };

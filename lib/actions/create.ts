@@ -3,7 +3,7 @@
 import { ValidationResponse } from "@/types/auth";
 import { createQRSchema } from "../validations/create";
 import { QRFormData } from "@/types/create";
-import { createClient } from "@/utils/supabase/server";
+import { getCachedUser } from "@/lib/auth/cached-auth";
 import { nanoid } from "nanoid";
 
 import { PrismaClient } from "@/app/generated/prisma";
@@ -11,6 +11,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import QRCode from "qrcode";
+import { success } from "zod";
 
 const prisma = new PrismaClient();
 async function generateUniqueRedirectCode(): Promise<string> {
@@ -58,11 +59,9 @@ export async function handleQrCreate(
 		};
 	}
 
-	const supabase = await createClient();
-	const { data } = await supabase.auth.getClaims();
-	const userId = data?.claims.sub;
+	const user = await getCachedUser();
 
-	if (!userId) {
+	if (!user?.id) {
 		return {
 			success: false,
 			message: "User not authenticated",
@@ -87,7 +86,7 @@ export async function handleQrCreate(
 
 				redirect_code: redirectCode,
 				is_active: true,
-				user_id: userId,
+				user_id: user.id,
 				qr_image_data: QRCodeGeneration,
 			},
 		});
@@ -108,4 +107,21 @@ export async function handleQrCreate(
 			message: "Failed to create QR code",
 		};
 	}
+}
+
+export async function handleScanDataCreate(code: string) {
+	// first check if the qr code exists.
+	const QrCodeData = await prisma.qrCode.findUnique({
+		where: {
+			redirect_code: code,
+		},
+	});
+
+	if (!QrCodeData)
+		return {
+			success: false,
+			message: "No code.",
+		};
+
+	console.log(QrCodeData);
 }
