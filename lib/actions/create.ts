@@ -9,9 +9,9 @@ import { nanoid } from "nanoid";
 import { PrismaClient } from "@/app/generated/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { invalidateQRCodesCache } from "./fetch";
 
 import QRCode from "qrcode";
-import { success } from "zod";
 
 const prisma = new PrismaClient();
 async function generateUniqueRedirectCode(): Promise<string> {
@@ -93,6 +93,8 @@ export async function handleQrCreate(
 
 		const { id } = data;
 
+		// Invalidate QR codes cache after creating
+		await invalidateQRCodesCache();
 		revalidatePath("/", "layout");
 		redirect(`/dashboard/qrcodes/${id}`);
 	} catch (error: any) {
