@@ -1,3 +1,4 @@
+"use client";
 import { QrCode } from "@/types/create";
 import {
 	Card,
@@ -17,6 +18,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { handleQrDownload } from "@/lib/actions/download";
 
 export default function QRCodeCard({ qr }: { qr: QrCode }) {
 	const {
@@ -50,7 +52,7 @@ export default function QRCodeCard({ qr }: { qr: QrCode }) {
 						<Edit className="size-4" />
 						Edit
 					</Button>
-					<Button>
+					<Button onClick={() => handleQrDownload(qr)}>
 						<Download className="size-4" />
 						Download
 					</Button>
