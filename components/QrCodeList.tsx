@@ -13,22 +13,25 @@ export default async function QrCodeList() {
 
 	return (
 		<div className="">
-			{qrcodes.data.length < 1 ? (
-				<div className="mt-20 w-full bg-red-100">
-					<div className="flex flex-col justify-center items-center w-full">
-						<p>You currently have no codes create.</p>
-						<Button>
-							<PlusIcon className="size-4" /> Create QR Code
-						</Button>
+			<h1 className="text-3xl text-gray-700 font-medium">Qr Codes</h1>
+			<div className=" mt-10">
+				{qrcodes.data.length < 1 ? (
+					<div className="mt-20 w-full bg-red-100">
+						<div className="flex flex-col justify-center items-center w-full">
+							<p>You currently have no codes create.</p>
+							<Button>
+								<PlusIcon className="size-4" /> Create QR Code
+							</Button>
+						</div>
 					</div>
-				</div>
-			) : (
-				<div className="grid  gap-5">
-					{qrcodes.data?.map((qrcode) => (
-						<QRCodeCard key={qrcode.id} qr={qrcode} />
-					))}
-				</div>
-			)}
+				) : (
+					<div className="grid  gap-5">
+						{qrcodes.data?.map((qrcode) => (
+							<QRCodeCard key={qrcode.id} qr={qrcode} />
+						))}
+					</div>
+				)}
+			</div>
 		</div>
 	);
 }

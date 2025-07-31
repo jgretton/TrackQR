@@ -15,7 +15,7 @@ export default function DashboardLayout({
 }>) {
 	return (
 		<>
-			<div className="border-b bg-white shadow-sm">
+			<div className="border-b bg-white shadow-sm fixed w-full">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex justify-between items-center py-4">
 						<div className="flex items-center gap-8">
@@ -51,9 +51,11 @@ export default function DashboardLayout({
 					</div>
 				</div>
 			</div>
-			<main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-				{children}
-			</main>
+			<div className="size-full min-h-dvh min-w-dvw bg-gray-50 pt-20">
+				<main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+					{children}
+				</main>
+			</div>
 		</>
 	);
 }
