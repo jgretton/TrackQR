@@ -50,7 +50,7 @@ export default function LoginForm() {
 				{isPending ? "Logging in..." : "Login"}
 			</Button>
 			<div className="inline-flex gap-3">
-				<p>Dont have an account?</p> <Link href="/sign-up">Sign up</Link>
+				<p>Dont have an account?</p> <Link href="/auth/sign-up">Sign up</Link>
 			</div>
 		</form>
 	);

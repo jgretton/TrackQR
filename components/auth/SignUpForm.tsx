@@ -68,7 +68,7 @@ export default function SignUpForm() {
 				{isPending ? "Signing up..." : "Sign up"}
 			</Button>
 			<div className="inline-flex gap-3">
-				<p>Already have an account?</p> <Link href="/login">Log in</Link>
+				<p>Already have an account?</p> <Link href="/auth/login">Log in</Link>
 			</div>
 		</form>
 	);
