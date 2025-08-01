@@ -13,7 +13,7 @@ import { fetchQRCode } from "@/lib/actions/fetch";
 export default async function SingleQrCodePage({
 	params,
 }: {
-	params: { id: string };
+	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
 	const QRData = await fetchQRCode(id);
