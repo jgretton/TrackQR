@@ -10,7 +10,7 @@ const prisma = new PrismaClient();
 const fetchQRCodeInternal = unstable_cache(
 	async (id: string, userId: string) => {
 		console.log("🔥 Fetching single QR code from database");
-		
+
 		const QrData = await prisma.qrCode.findUnique({
 			where: {
 				id: id,
@@ -20,9 +20,9 @@ const fetchQRCodeInternal = unstable_cache(
 
 		return QrData;
 	},
-	['single-qr-code'],
+	["single-qr-code"],
 	{
-		tags: ['qr-codes'],
+		tags: ["qr-codes"],
 		revalidate: 300,
 	}
 );
@@ -33,7 +33,7 @@ export async function fetchQRCode(id: string) {
 	if (!user?.id) {
 		return { success: false, error: "Unauthorized" };
 	}
-	
+
 	try {
 		const QrData = await fetchQRCodeInternal(id, user.id);
 
@@ -62,8 +62,6 @@ interface FetchAllReturn {
 // Internal cached function that takes userId as parameter
 const fetchAllQRCodesInternal = unstable_cache(
 	async (userId: string) => {
-		console.log("🔥 Fetching all QR codes from database for user:", userId);
-		
 		const QRCodes = await prisma.qrCode.findMany({
 			where: { user_id: userId },
 			orderBy: { created_at: "desc" },
@@ -84,10 +82,10 @@ export async function fetchAllQRCodes(): Promise<FetchAllReturn> {
 	if (!user?.id) {
 		return { success: false, error: "Unauthorized" };
 	}
-	
+
 	try {
 		const QRCodes = await fetchAllQRCodesInternal(user.id);
-		
+
 		return {
 			success: true,
 			data: QRCodes,
