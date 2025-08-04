@@ -36,11 +36,25 @@ export function EditQrForm({ qr }: { qr: QrCode }) {
 				</div>
 				<div className="grid gap-3">
 					<Label htmlFor="destination_url">Destination URL</Label>
-					<Input
-						id="destination_url"
-						name="destination_url"
-						defaultValue={qr.destination_url}
-					/>
+					<div className="relative">
+						<span
+							className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-500 cursor-text select-none"
+							onClick={() =>
+								document.getElementById("destination_url")?.focus()
+							}
+						>
+							https://
+						</span>
+						<Input
+							id="destination_url"
+							name="destination_url"
+							className="pl-16"
+							placeholder="example.com"
+							defaultValue={
+								qr.destination_url?.replace(/^https:\/\//, "") || ""
+							}
+						/>
+					</div>
 				</div>
 				<div className="grid gap-3">
 					<Label htmlFor="expires_at" className="flex items-center gap-5">

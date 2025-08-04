@@ -32,9 +32,16 @@ export async function handleQrEdit(
 		}
 		expires_at = new Date(expiryDateString);
 	}
+	let destination = formData.get("destination_url") as string;
+	
+	// Automatically prefix with https:// if no protocol is present
+	if (destination && !destination.match(/^https?:\/\//)) {
+		destination = `https://${destination}`;
+	}
+
 	const qrFormData: QRFormData = {
 		name: formData.get("name") as string,
-		destination: formData.get("destination_url") as string,
+		destination: destination,
 		expires_at: expires_at,
 		is_active: isActive as boolean,
 	};

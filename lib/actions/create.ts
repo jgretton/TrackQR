@@ -45,9 +45,16 @@ export async function handleQrCreate(
 	const expiresAtString = formData.get("expires_at") as string;
 	const expires_at = expiresAtString ? new Date(expiresAtString) : null;
 
+	let destination = formData.get("destination") as string;
+	
+	// Automatically prefix with https:// if no protocol is present
+	if (destination && !destination.match(/^https?:\/\//)) {
+		destination = `https://${destination}`;
+	}
+
 	const qrFormData: QRFormData = {
 		name: formData.get("name") as string,
-		destination: formData.get("destination") as string,
+		destination: destination,
 		expires_at: expires_at,
 	};
 

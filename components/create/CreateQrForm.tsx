@@ -39,15 +39,25 @@ export default function CreateQrForm() {
 			<div className="space-y-2">
 				<Label htmlFor="destination"> Destination</Label>
 				<p className="text-sm text-gray-500">
-					This is where you input the URL you would like the qr code to direct
-					to
+					Enter the URL you want the QR code to redirect to (https:// will be
+					added automatically)
 				</p>
-				<Input
-					type="text"
-					name="destination"
-					id="destination"
-					defaultValue={state?.inputs?.destination}
-				/>
+				<div className="relative">
+					<span
+						className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-500 cursor-text select-none"
+						onClick={() => document.getElementById("destination")?.focus()}
+					>
+						https://
+					</span>
+					<Input
+						type="text"
+						name="destination"
+						id="destination"
+						className="pl-16"
+						placeholder="example.com"
+						defaultValue={state?.inputs?.destination}
+					/>
+				</div>
 				{state?.errors?.destination && (
 					<p className="text-sm text-red-500"> {state.errors.destination}</p>
 				)}
