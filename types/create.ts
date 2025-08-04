@@ -12,11 +12,28 @@ export interface QrCode {
 	name: string;
 	destination_url: string;
 	redirect_code: string;
-	qr_image_data: string;
+	qr_image_data?: string;
 	created_at: Date;
 	updated_at: Date;
-	expires_at?: Date | null;
+	expires_at?: string | null;
 	is_active: boolean;
 
-	scans: string[];
+	scans?: Scans[];
+}
+export interface Scans {
+	id: string;
+	qr_code_id: string;
+	scanned_at: Date;
+	ip_address?: number;
+	user_agent?: string;
+	country?: string;
+	city?: string;
+	device_type?: string;
+	referrer?: string;
+}
+
+export interface FetchAllReturn {
+	success: boolean;
+	error?: string;
+	data?: QrCode[];
 }

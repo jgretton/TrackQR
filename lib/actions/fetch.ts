@@ -1,7 +1,7 @@
 import { cache } from "react";
 import { unstable_cache } from "next/cache";
 import { PrismaClient } from "@/app/generated/prisma";
-import { QrCode } from "@/types/create";
+import { QrCode, FetchAllReturn } from "@/types/create";
 import { getCachedUser } from "@/lib/auth/cached-auth";
 
 const prisma = new PrismaClient();
@@ -51,12 +51,6 @@ export async function fetchQRCode(id: string) {
 	} catch (error) {
 		throw error;
 	}
-}
-
-interface FetchAllReturn {
-	success: boolean;
-	error?: string;
-	data?: QrCode[];
 }
 
 // Internal cached function that takes userId as parameter

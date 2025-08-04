@@ -3,10 +3,10 @@ import { fetchAllQRCodes } from "@/lib/actions/fetch";
 import { Button } from "./ui/button";
 import { PlusIcon } from "lucide-react";
 import QRCodeCard from "./QrCodeCard";
+import { FetchAllReturn } from "@/types/create";
 
 export default async function QrCodeList() {
-	const qrcodes: { success: boolean; data?: QrCode[]; error?: string } =
-		await fetchAllQRCodes();
+	const qrcodes: FetchAllReturn = await fetchAllQRCodes();
 	if (!qrcodes.success || !qrcodes.data) {
 		return <div>QR Code not found</div>;
 	}
