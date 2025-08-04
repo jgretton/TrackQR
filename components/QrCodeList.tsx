@@ -1,4 +1,3 @@
-import { QrCode } from "@/app/generated/prisma";
 import { fetchAllQRCodes } from "@/lib/actions/fetch";
 import { Button } from "./ui/button";
 import { PlusIcon } from "lucide-react";

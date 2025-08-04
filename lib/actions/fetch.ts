@@ -1,7 +1,6 @@
-import { cache } from "react";
 import { unstable_cache } from "next/cache";
 import { PrismaClient } from "@/app/generated/prisma";
-import { QrCode, FetchAllReturn } from "@/types/create";
+import { FetchAllReturn } from "@/types/create";
 import { getCachedUser } from "@/lib/auth/cached-auth";
 
 const prisma = new PrismaClient();
