@@ -3,6 +3,11 @@ import { QrCode } from "@/types/create";
 export function handleQrDownload(qrcode: QrCode) {
 	const base64Data = qrcode.qr_image_data; // "data:image/png;base64,iVBORw0KGgoAAAANS..."
 
+	if (!base64Data) {
+		console.error("No QR image data available for download");
+		return;
+	}
+
 	// Step 2: Convert base64 to blob
 	const byteCharacters = atob(base64Data.split(",")[1]); // Remove "data:image/png;base64," part
 	const byteNumbers = new Array(byteCharacters.length);

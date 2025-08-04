@@ -42,10 +42,13 @@ export async function handleQrCreate(
 ) {
 	await new Promise((resolve) => setTimeout(resolve, 1000));
 
+	const expiresAtString = formData.get("expires_at") as string;
+	const expires_at = expiresAtString ? new Date(expiresAtString) : null;
+
 	const qrFormData: QRFormData = {
 		name: formData.get("name") as string,
 		destination: formData.get("destination") as string,
-		expires_at: formData.get("expires_at") as string,
+		expires_at: expires_at,
 	};
 
 	const validationData = createQRSchema.safeParse(qrFormData);
@@ -80,10 +83,7 @@ export async function handleQrCreate(
 			data: {
 				name: qrFormData.name,
 				destination_url: qrFormData.destination,
-				expires_at: qrFormData.expires_at
-					? new Date(qrFormData.expires_at)
-					: null,
-
+				expires_at: qrFormData.expires_at,
 				redirect_code: redirectCode,
 				is_active: true,
 				user_id: user.id,
@@ -97,9 +97,9 @@ export async function handleQrCreate(
 		await invalidateQRCodesCache();
 		revalidatePath("/", "layout");
 		redirect(`/dashboard/qrcodes/${id}`);
-	} catch (error: any) {
+	} catch (error: unknown) {
 		// If it's a redirect, let it through
-		if (error?.message?.includes("NEXT_REDIRECT")) {
+		if (error instanceof Error && error.message?.includes("NEXT_REDIRECT")) {
 			throw error;
 		}
 

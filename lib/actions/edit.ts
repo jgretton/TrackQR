@@ -13,7 +13,7 @@ const prisma = new PrismaClient();
 export async function handleQrEdit(
 	prevState: ValidationResponse | null,
 	formData: FormData
-) {
+): Promise<ValidationResponse> {
 	await new Promise((resolve) => setTimeout(resolve, 1000));
 
 	const isActive = formData.get("is_active") === "on" ? true : false;
@@ -77,8 +77,13 @@ export async function handleQrEdit(
 		});
 		await invalidateQRCodesCache();
 		revalidatePath("/", "layout");
-	} catch (error) {
-		if (error?.message?.includes("NEXT_REDIRECT")) {
+		
+		return {
+			success: true,
+			message: "QR code updated successfully",
+		};
+	} catch (error: unknown) {
+		if (error instanceof Error && error.message?.includes("NEXT_REDIRECT")) {
 			throw error;
 		}
 

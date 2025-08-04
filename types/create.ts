@@ -1,7 +1,7 @@
 export interface QRFormData {
 	name: string;
 	destination: string;
-	expires_at?: string;
+	expires_at?: Date | null;
 	is_active?: boolean;
 	id?: string;
 }
@@ -15,7 +15,7 @@ export interface QrCode {
 	qr_image_data?: string;
 	created_at: Date;
 	updated_at: Date;
-	expires_at?: string | null;
+	expires_at?: Date | null;
 	is_active: boolean;
 
 	scans?: Scans[];
