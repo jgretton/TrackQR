@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 export async function GET(
 	req: NextRequest,
-	{ params }: { params: { code: string } }
+	{ params }: { params: Promise<{ code: string }> }
 ) {
 	// get code from params
 	const { code } = await params;
@@ -37,9 +37,14 @@ export async function GET(
 	}
 
 	// if. yes - get redicrect and id
+	// const ip =
+	// 	process.env.NODE_ENV === "development" ? "8.8.8.8" : ipAddress(req);
+	// const location = geolocation(req);
 	const ip = ipAddress(req);
-
 	console.log(ip);
+	const locationData = geolocation(req);
+	console.log(locationData);
+
 	// get ip address.
 	// use ip address in package to get full analytic data
 	// compile into object to save to scan.
@@ -47,7 +52,6 @@ export async function GET(
 	// redirect user to redirect url
 
 	// // Optionally get additional location data
-	// const location = geolocation(req);
 
 	// console.log("Detected IP:", ip);
 	// console.log("Location data:", location);
