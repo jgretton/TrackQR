@@ -27,12 +27,12 @@ export interface Scans {
 	id: string;
 	qr_code_id: string;
 	scanned_at: Date;
-	ip_address?: number;
-	user_agent?: string;
-	country?: string;
-	city?: string;
-	device_type?: string;
-	referrer?: string;
+	ip_address?: string | null;
+	user_agent?: string | null;
+	country?: string | null;
+	city?: string | null;
+	device_type?: string | null;
+	referrer?: string | null;
 }
 
 export interface FetchAllReturn {

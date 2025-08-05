@@ -15,7 +15,7 @@ const fetchQRCodeInternal = unstable_cache(
 			},
 			include: {
 				scans: { orderBy: { scanned_at: "desc" } },
-				_count: { select: { scans: { where: { qr_code_id: id } } } },
+				_count: { select: { scans: true } },
 			},
 		});
 
