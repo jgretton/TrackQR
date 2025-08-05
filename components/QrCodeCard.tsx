@@ -23,6 +23,7 @@ import {
 	SheetTrigger,
 } from "./ui/sheet";
 import { EditQrForm } from "./edit/EditQrForm";
+import { RealtimeScanCounter } from "./RealtimeScanCounter";
 interface QrCodeCardProps {
 	qr: QrCode;
 	showAnalyticsButton?: boolean;
@@ -120,7 +121,10 @@ export default function QRCodeCard({
 										<BarChart3 className="h-3 w-3" />
 										<span>
 											<strong className="text-gray-900">
-												{_count?.scans || 0}
+												<RealtimeScanCounter
+													qrCodeId={id}
+													initialCount={_count?.scans || 0}
+												/>
 											</strong>{" "}
 											{(_count?.scans || 0) === 1 ? "scan" : "scans"}
 										</span>
