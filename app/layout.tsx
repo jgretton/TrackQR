@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Link from "next/link";
 import { AuthButton } from "@/components/auth/AuthButton";
+import { NavigationLinks } from "@/components/NavigationLinks";
+import Link from "next/link";
+import NavigationHeader from "@/components/NavigationHeader";
 
 export const metadata: Metadata = {
 	title: "TrackQR",
@@ -16,11 +18,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`antialiased`}>
-				<nav className="flex gap-4">
-					<Link href={"/"}>Home</Link>
-					<Link href={"/dashboard"}>Dash</Link>
-					<AuthButton />
-				</nav>
+				<NavigationHeader />
 				{children}
 			</body>
 		</html>
