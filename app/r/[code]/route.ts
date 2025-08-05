@@ -36,37 +36,26 @@ export async function GET(
 		return NextResponse.json({ error: "Not found" }, { status: 404 });
 	}
 
-	// if. yes - get redicrect and id
-	// const ip =
-	// 	process.env.NODE_ENV === "development" ? "8.8.8.8" : ipAddress(req);
-	// const location = geolocation(req);
-	const ip = ipAddress(req);
-	console.log(ip);
+	// Collect analytics data
 	const locationData = geolocation(req);
-	console.log(locationData);
 	const user_agent = userAgent(req);
-	console.log(user_agent);
 
-	// const scan: Scan = await prisma.scan.create({
-	// 	data: {
-	// 		qr_code_id: QrData.id,
-	// 		scanned_at: new Date(),
+	try {
+		await prisma.scan.create({
+			data: {
+				qr_code_id: QrData.id,
+				scanned_at: new Date(),
+				user_agent: user_agent.ua || null,
+				country: locationData?.country || null,
+				city: locationData?.city || null,
+				device_type: user_agent.device?.type || null,
+				referrer: req.headers.get("referer") || null,
+			},
+		});
+	} catch (error) {
+		console.error("Failed to record scan:", error);
+		// Continue with redirect even if scan recording fails
+	}
 
-	// 	},
-	// });
-
-	// get ip address.
-	// use ip address in package to get full analytic data
-	// compile into object to save to scan.
-	// Save to scan
-	// redirect user to redirect url
-
-	// // Optionally get additional location data
-
-	// console.log("Detected IP:", ip);
-	// console.log("Location data:", location);
-
-	//Redirect return
-	// return NextResponse.redirect(QrData.destination_url, 302);
-	return NextResponse.json({ success: true, QrData });
+	return NextResponse.redirect(QrData.destination_url, 302);
 }
