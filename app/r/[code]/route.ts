@@ -51,6 +51,10 @@ export async function GET(
 				referrer: req.headers.get("referer") || null,
 			},
 		});
+
+		// Invalidate QR codes cache after scan
+		const { revalidateTag } = await import("next/cache");
+		revalidateTag("qr-codes");
 	} catch (error) {
 		console.error("Failed to record scan:", error);
 		// Continue with redirect even if scan recording fails

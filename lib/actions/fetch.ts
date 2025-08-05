@@ -65,7 +65,7 @@ const fetchAllQRCodesInternal = unstable_cache(
 	["user-qr-codes"], // Cache key
 	{
 		tags: ["qr-codes"], // For invalidation
-		revalidate: 300, // 5 minutes
+		revalidate: 30, // 30 seconds
 	}
 );
 
