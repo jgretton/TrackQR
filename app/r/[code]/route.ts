@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, userAgent } from "next/server";
 import { ipAddress, geolocation } from "@vercel/functions";
-import { PrismaClient } from "@/app/generated/prisma";
+import { PrismaClient, Scan } from "@/app/generated/prisma";
 
 const prisma = new PrismaClient();
 
@@ -44,6 +44,16 @@ export async function GET(
 	console.log(ip);
 	const locationData = geolocation(req);
 	console.log(locationData);
+	const user_agent = userAgent(req);
+	console.log(user_agent);
+
+	// const scan: Scan = await prisma.scan.create({
+	// 	data: {
+	// 		qr_code_id: QrData.id,
+	// 		scanned_at: new Date(),
+
+	// 	},
+	// });
 
 	// get ip address.
 	// use ip address in package to get full analytic data
@@ -56,9 +66,7 @@ export async function GET(
 	// console.log("Detected IP:", ip);
 	// console.log("Location data:", location);
 
-	// return NextResponse.json({
-	// 	ip,
-	// 	location, // Includes city, country, region, etc.
-	// });
+	//Redirect return
+	// return NextResponse.redirect(QrData.destination_url, 302);
 	return NextResponse.json({ success: true, QrData });
 }
