@@ -12,7 +12,7 @@ export interface QrCode {
 	name: string;
 	destination_url: string;
 	redirect_code: string;
-	qr_image_data?: string;
+	qr_image_data?: string | null;
 	created_at: Date;
 	updated_at: Date;
 	expires_at?: Date | null;

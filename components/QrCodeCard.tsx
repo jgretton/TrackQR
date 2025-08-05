@@ -23,8 +23,15 @@ import {
 	SheetTrigger,
 } from "./ui/sheet";
 import { EditQrForm } from "./edit/EditQrForm";
+interface QrCodeCardProps {
+	qr: QrCode;
+	showAnalyticsButton?: boolean;
+}
 
-export default function QRCodeCard({ qr }: { qr: QrCode }) {
+export default function QRCodeCard({
+	qr,
+	showAnalyticsButton,
+}: QrCodeCardProps) {
 	const { id, name, destination_url, qr_image_data, expires_at, is_active } =
 		qr;
 
@@ -129,20 +136,22 @@ export default function QRCodeCard({ qr }: { qr: QrCode }) {
 
 								{/* Actions */}
 								<div className="flex flex-col sm:flex-row sm:items-center gap-1">
-									<Button
-										variant="outline"
-										size="sm"
-										asChild
-										className="h-7 px-2 text-xs"
-									>
-										<Link
-											href={`/dashboard/qrcodes/${id}`}
-											className="flex items-center gap-1"
+									{showAnalyticsButton !== false && (
+										<Button
+											variant="outline"
+											size="sm"
+											asChild
+											className="h-7 px-2 text-xs"
 										>
-											<BarChart3 className="h-3 w-3" />
-											<span className="">Analytics</span>
-										</Link>
-									</Button>
+											<Link
+												href={`/dashboard/qrcodes/${id}`}
+												className="flex items-center gap-1"
+											>
+												<BarChart3 className="h-3 w-3" />
+												<span className="">Analytics</span>
+											</Link>
+										</Button>
+									)}
 
 									<SheetTrigger asChild>
 										<Button
