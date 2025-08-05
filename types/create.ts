@@ -17,6 +17,9 @@ export interface QrCode {
 	updated_at: Date;
 	expires_at?: Date | null;
 	is_active: boolean;
+	_count?: {
+		scans?: number;
+	};
 
 	scans?: Scans[];
 }

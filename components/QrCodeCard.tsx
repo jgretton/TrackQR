@@ -32,9 +32,15 @@ export default function QRCodeCard({
 	qr,
 	showAnalyticsButton,
 }: QrCodeCardProps) {
-	const { id, name, destination_url, qr_image_data, expires_at, is_active } =
-		qr;
-
+	const {
+		id,
+		name,
+		destination_url,
+		qr_image_data,
+		expires_at,
+		is_active,
+		_count,
+	} = qr;
 	const isExpired = expires_at ? new Date(expires_at) < new Date() : false;
 
 	return (
@@ -113,7 +119,10 @@ export default function QRCodeCard({
 									<div className="flex items-center gap-1">
 										<BarChart3 className="h-3 w-3" />
 										<span>
-											<strong className="text-gray-900">789</strong> scans
+											<strong className="text-gray-900">
+												{_count?.scans || 0}
+											</strong>{" "}
+											{(_count?.scans || 0) === 1 ? "scan" : "scans"}
 										</span>
 									</div>
 

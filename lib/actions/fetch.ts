@@ -8,12 +8,14 @@ const prisma = new PrismaClient();
 // Internal cached function that takes userId as parameter
 const fetchQRCodeInternal = unstable_cache(
 	async (id: string, userId: string) => {
-		console.log("🔥 Fetching single QR code from database");
-
 		const QrData = await prisma.qrCode.findUnique({
 			where: {
 				id: id,
 				user_id: userId,
+			},
+			include: {
+				scans: { orderBy: { scanned_at: "desc" } },
+				_count: { select: { scans: { where: { qr_code_id: id } } } },
 			},
 		});
 
@@ -58,6 +60,7 @@ const fetchAllQRCodesInternal = unstable_cache(
 		const QRCodes = await prisma.qrCode.findMany({
 			where: { user_id: userId },
 			orderBy: { created_at: "desc" },
+			include: { _count: { select: { scans: true } } },
 		});
 
 		return QRCodes;
