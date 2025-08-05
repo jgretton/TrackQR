@@ -1,9 +1,7 @@
 import { unstable_cache } from "next/cache";
-import { PrismaClient } from "@/app/generated/prisma";
 import { FetchAllReturn } from "@/types/create";
 import { getCachedUser } from "@/lib/auth/cached-auth";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
 
 // Internal cached function that takes userId as parameter
 const fetchQRCodeInternal = unstable_cache(

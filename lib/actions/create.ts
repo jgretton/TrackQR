@@ -6,14 +6,12 @@ import { QRFormData } from "@/types/create";
 import { getCachedUser } from "@/lib/auth/cached-auth";
 import { nanoid } from "nanoid";
 
-import { PrismaClient } from "@/app/generated/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { invalidateQRCodesCache } from "./fetch";
+import { prisma } from "@/lib/prisma";
 
 import QRCode from "qrcode";
-
-const prisma = new PrismaClient();
 async function generateUniqueRedirectCode(): Promise<string> {
 	let attempts = 0;
 	const maxAttempts = 10;

@@ -4,11 +4,9 @@ import { ValidationResponse } from "@/types/auth";
 import { updateQRSchema } from "../validations/create";
 import { QRFormData } from "@/types/create";
 import { getCachedUser } from "../auth/cached-auth";
-import { PrismaClient } from "@/app/generated/prisma";
 import { revalidatePath } from "next/cache";
 import { invalidateQRCodesCache } from "./fetch";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
 
 export async function handleQrEdit(
 	prevState: ValidationResponse | null,

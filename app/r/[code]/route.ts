@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse, userAgent } from "next/server";
 import { ipAddress, geolocation } from "@vercel/functions";
-import { PrismaClient, Scan } from "@/app/generated/prisma";
-
-const prisma = new PrismaClient();
+import { Scan } from "@/app/generated/prisma";
+import { prisma } from "@/lib/prisma";
 
 export async function GET(
 	req: NextRequest,
