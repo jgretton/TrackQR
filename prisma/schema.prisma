@@ -25,6 +25,7 @@ model QrCode {
   updated_at      DateTime @updatedAt
   expires_at      DateTime? // Null = no expiration
   is_active       Boolean  @default(true)
+  scan_count      Int      @default(0) // Cached count of scans
   
   // Relationship to scans
   scans Scan[]

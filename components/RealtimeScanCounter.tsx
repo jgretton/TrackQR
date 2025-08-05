@@ -14,17 +14,18 @@ export function RealtimeScanCounter({
 
 	useEffect(() => {
 		const channel = supabase
-			.channel("scans")
+			.channel("qr_codes")
 			.on(
 				"postgres_changes",
 				{
-					event: "INSERT",
+					event: "UPDATE",
 					schema: "public",
-					table: "scans",
-					filter: `qr_code_id=eq.${qrCodeId}`,
+					table: "qr_codes",
+					filter: `id=eq.${qrCodeId}`,
 				},
-				() => {
-					setScanCount((prev) => prev + 1);
+				(payload) => {
+					// Update with the new scan_count from the database
+					setScanCount(payload.new.scan_count);
 				}
 			)
 			.subscribe();

@@ -58,7 +58,6 @@ const fetchAllQRCodesInternal = unstable_cache(
 		const QRCodes = await prisma.qrCode.findMany({
 			where: { user_id: userId },
 			orderBy: { created_at: "desc" },
-			include: { _count: { select: { scans: true } } },
 		});
 
 		return QRCodes;

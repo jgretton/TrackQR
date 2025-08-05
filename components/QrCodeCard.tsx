@@ -40,7 +40,7 @@ export default function QRCodeCard({
 		qr_image_data,
 		expires_at,
 		is_active,
-		_count,
+		scan_count,
 	} = qr;
 	const isExpired = expires_at ? new Date(expires_at) < new Date() : false;
 
@@ -123,10 +123,10 @@ export default function QRCodeCard({
 											<strong className="text-gray-900">
 												<RealtimeScanCounter
 													qrCodeId={id}
-													initialCount={_count?.scans || 0}
+													initialCount={scan_count}
 												/>
 											</strong>{" "}
-											{(_count?.scans || 0) === 1 ? "scan" : "scans"}
+											{scan_count === 1 ? "scan" : "scans"}
 										</span>
 									</div>
 
