@@ -46,7 +46,7 @@ export async function handleQrCreate(
 	const expires_at = expiresAtString ? new Date(expiresAtString) : null;
 
 	let destination = formData.get("destination") as string;
-	
+
 	// Automatically prefix with https:// if no protocol is present
 	if (destination && !destination.match(/^https?:\/\//)) {
 		destination = `https://${destination}`;
@@ -81,8 +81,13 @@ export async function handleQrCreate(
 	// Generate unique redirect code
 	const redirectCode = await generateUniqueRedirectCode();
 
+	const baseUrl =
+		process.env.NODE_ENV === "development"
+			? "http://localhost:3000"
+			: process.env.NEXT_PUBLIC_SITE_URL;
+
 	const QRCodeGeneration = await QRCode.toDataURL(
-		`https://localhost:3000/r/${redirectCode}`
+		`${baseUrl}/r/${redirectCode}`
 	);
 
 	try {
