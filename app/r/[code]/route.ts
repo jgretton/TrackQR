@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse, userAgent } from "next/server";
-import { ipAddress, geolocation } from "@vercel/functions";
-import { Scan } from "@/app/generated/prisma";
-import { prisma } from "@/lib/prisma";
+import { geolocation } from "@vercel/functions";
+import { PrismaClient } from "@/app/generated/prisma";
+
+const prisma = new PrismaClient();
 
 export async function GET(
 	req: NextRequest,
@@ -51,10 +52,6 @@ export async function GET(
 				referrer: req.headers.get("referer") || null,
 			},
 		});
-
-		// Invalidate QR codes cache after scan
-		const { revalidateTag } = await import("next/cache");
-		revalidateTag("qr-codes");
 	} catch (error) {
 		console.error("Failed to record scan:", error);
 		// Continue with redirect even if scan recording fails

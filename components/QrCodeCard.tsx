@@ -8,6 +8,7 @@ import {
 	Edit,
 	ExternalLink,
 	TimerOffIcon,
+	Trash2,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,6 +24,8 @@ import {
 	SheetTrigger,
 } from "./ui/sheet";
 import { EditQrForm } from "./edit/EditQrForm";
+import { handleQrDelete } from "@/lib/actions/delete";
+import { DeleteButton } from "./DeleteButton";
 interface QrCodeCardProps {
 	qr: QrCode;
 	showAnalyticsButton?: boolean;
@@ -119,7 +122,9 @@ export default function QRCodeCard({
 									<div className="flex items-center gap-1">
 										<BarChart3 className="h-3 w-3" />
 										<span>
-											<strong className="text-gray-900">{scan_count || 0}</strong>{" "}
+											<strong className="text-gray-900">
+												{scan_count || 0}
+											</strong>{" "}
 											{(scan_count || 0) === 1 ? "scan" : "scans"}
 										</span>
 									</div>
@@ -180,6 +185,7 @@ export default function QRCodeCard({
 										<Download className="h-3 w-3" />
 										<span className="">Download</span>
 									</Button>
+									<DeleteButton id={id} />
 								</div>
 							</div>
 						</div>
