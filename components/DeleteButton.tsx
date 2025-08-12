@@ -29,7 +29,7 @@ export function DeleteButton({ id }: { id: string }) {
 				<Button
 					variant="destructive"
 					size="icon"
-					className="h-7 px-2 text-xs flex items-center gap-1"
+					className="h-7 px-2 text-xs flex items-center gap-1 w-full sm:w-auto"
 				>
 					<Trash2 className="h-3 w-3" />
 				</Button>

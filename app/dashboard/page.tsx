@@ -1,19 +1,19 @@
-import { redirect } from "next/navigation";
-import { createClient } from "@/utils/supabase/server";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { SectionCards } from "@/components/SectionCards";
+import { SectionCardsSkeleton } from "@/components/SectionCardsSkeleton";
+import { Suspense } from "react";
+import { DashboardChart } from "@/components/DashboardChart";
+
 export default async function Dashboard() {
-	const supabase = await createClient();
-	const { data, error } = await supabase.auth.getUser();
-	if (error || !data?.user) {
-		redirect("/login");
-	}
 	return (
 		<div className="">
-			<div className="max-w-md bg-white roudned-md p-3">
-				<Button>
-					<Link href={"/dashboard/create"}>Create New Qr Code</Link>
-				</Button>
+			<h1 className="text-3xl text-gray-700 font-medium">Dashboard</h1>
+			<div className="mt-10">
+				<Suspense fallback={<SectionCardsSkeleton />}>
+					<SectionCards />
+				</Suspense>
+				<div className=" mt-5">
+					<DashboardChart />
+				</div>
 			</div>
 		</div>
 	);

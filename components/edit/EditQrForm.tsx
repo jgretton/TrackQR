@@ -24,8 +24,6 @@ export function EditQrForm({ qr }: { qr: QrCode }) {
 
 	const [state, action, isPending] = useActionState(handleQrEdit, initialState);
 
-	console.log(state);
-
 	return (
 		<form action={action} className="flex flex-col justify-between h-full">
 			<input type="hidden" name="qr_id" value={qr.id} />

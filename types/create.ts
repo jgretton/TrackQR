@@ -41,3 +41,28 @@ export interface FetchAllReturn {
 	error?: string;
 	data?: QrCode[];
 }
+
+// Chart data types
+export interface ChartDataItem {
+	date: string;
+	count: number;
+}
+
+export interface ChartDataReturn {
+	success: boolean;
+	error?: string;
+	data?: ChartDataItem[];
+}
+
+// Dashboard data types
+export interface DashboardData {
+	totalScans: number;
+	topScanned: QrCode;
+	totalActive: QrCode[];
+}
+
+export interface DashboardDataReturn {
+	success: boolean;
+	error?: string;
+	data?: DashboardData;
+}

@@ -23,8 +23,6 @@ export default async function SingleQrCodePage({
 		return <div>QR Code not found</div>;
 	}
 
-	console.log(QRData.data.scans);
-
 	return (
 		<div className=" grid grid-cols-1 gap-10">
 			<Link
