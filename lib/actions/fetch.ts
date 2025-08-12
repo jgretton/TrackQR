@@ -47,9 +47,42 @@ export async function fetchQRCode(id: string) {
 			};
 		}
 
+		//average daily scans
+		//take first and last scan, work out how many days between
+		const firstScan = new Date(
+			QrData.scans[QrData.scans.length - 1].scanned_at
+		);
+		const lastScan = new Date(QrData.scans[0].scanned_at);
+
+		const timeDifference = Math.abs(lastScan.getTime() - firstScan.getTime());
+		const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+		const averageDailyScans = QrData.scan_count / daysDifference;
+		const graphData: { date: string; count: number }[] = [];
+		QrData.scans.forEach((scan) => {
+			const newDate = new Date(scan.scanned_at);
+			const arrayIndex = graphData.findIndex(
+				(value) => value.date === newDate.toISOString().split("T")[0]
+			);
+			if (arrayIndex !== -1)
+				return (graphData[arrayIndex].count = graphData[arrayIndex].count + 1);
+			else {
+				return graphData.push({
+					date: newDate.toISOString().split("T")[0],
+					count: 1,
+				});
+			}
+		});
+
+		//Last scan
 		return {
 			success: true,
-			data: QrData,
+			data: {
+				QrData,
+				lastScan,
+				averageDailyScans,
+				graphData: graphData.reverse(),
+			},
 		};
 	} catch (error) {
 		throw error;
@@ -175,6 +208,6 @@ export async function fetchChartData(): Promise<ChartDataReturn> {
 
 		return { success: true, data: returnData.reverse() };
 	} catch (error) {
-		throw { success: false, errorMessage: error };
+		return { success: false, error: `There has been an error: ${error}` };
 	}
 }

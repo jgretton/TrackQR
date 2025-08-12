@@ -1,8 +1,9 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { fetchQRCode } from "@/lib/actions/fetch";
 import QrCodeCard from "@/components/qrcode/QrCodeCard";
 import { ChevronLeftIcon } from "lucide-react";
 import Link from "next/link";
+import { AnalyticsCards } from "@/components/analytics/AnalyticsCards";
+import { AnalyticsGraph } from "@/components/analytics/AnalyticsGraph";
 
 export default async function SingleQrCodePage({
 	params,
@@ -10,12 +11,12 @@ export default async function SingleQrCodePage({
 	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
-	const QRData = await fetchQRCode(id);
+	const response = await fetchQRCode(id);
 
-	if (!QRData.success || !QRData.data) {
+	if (!response.success || !response.data) {
 		return <div>QR Code not found</div>;
 	}
-
+	const { QrData, averageDailyScans, lastScan, graphData } = response.data;
 	return (
 		<div className=" grid grid-cols-1 gap-10">
 			<Link
@@ -25,17 +26,14 @@ export default async function SingleQrCodePage({
 			>
 				<ChevronLeftIcon className="size-4" /> Back to QR Codes
 			</Link>
-			<QrCodeCard qr={QRData.data} showAnalyticsButton={false} />
-
-			<Card>
-				<CardHeader>
-					<CardTitle>Analytics</CardTitle>
-				</CardHeader>
-				<CardContent>
-					<p>Average daily scans</p>
-					<p>Last Scan time</p>
-				</CardContent>
-			</Card>
+			<QrCodeCard qr={QrData} showAnalyticsButton={false} />
+			<h2 className="text-xl font-semibold text-gray-700">Analytics</h2>
+			<AnalyticsCards
+				qrData={QrData}
+				averageDailyScans={averageDailyScans}
+				lastScan={lastScan}
+			/>
+			<AnalyticsGraph graphData={graphData} />
 		</div>
 	);
 }
