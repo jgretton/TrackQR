@@ -6,7 +6,7 @@ import {
 	CardFooter,
 	CardHeader,
 	CardTitle,
-} from "./ui/card";
+} from "@/components/ui/card";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 

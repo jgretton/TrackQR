@@ -1,14 +1,16 @@
+"use client";
+
 import { handleQrEdit } from "@/lib/actions/edit";
 import { QrCode } from "@/types/create";
 import { useActionState, useState } from "react";
-import { Button } from "../ui/button";
-import { Switch } from "../ui/switch";
-import { Label } from "../ui/label";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { CalendarIcon, Loader2 } from "lucide-react";
-import { Calendar } from "../ui/calendar";
+import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
-import { Input } from "../ui/input";
+import { Input } from "@/components/ui/input";
 
 export function EditQrForm({ qr }: { qr: QrCode }) {
 	const [open, setOpen] = useState(false);

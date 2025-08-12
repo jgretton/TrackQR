@@ -1,7 +1,7 @@
 "use client";
 import { QrCode } from "@/types/create";
-import { Card, CardContent } from "./ui/card";
-import { Button } from "./ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
 	BarChart3,
 	Download,
@@ -22,8 +22,8 @@ import {
 	SheetHeader,
 	SheetTitle,
 	SheetTrigger,
-} from "./ui/sheet";
-import { EditQrForm } from "./edit/EditQrForm";
+} from "@/components/ui/sheet";
+import { EditQrForm } from "@/components/forms/EditQrForm";
 import { handleQrDelete } from "@/lib/actions/delete";
 import { DeleteButton } from "./DeleteButton";
 interface QrCodeCardProps {

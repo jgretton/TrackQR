@@ -1,4 +1,4 @@
-import { QrCodeSkeleton } from "@/components/QRSkeleton";
+import { QrCodeSkeleton } from "@/components/qrcode/QRSkeleton";
 import { Card, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 

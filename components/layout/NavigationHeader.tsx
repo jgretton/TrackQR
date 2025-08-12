@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AuthButton } from "./auth/AuthButton";
+import { AuthButton } from "@/components/auth/AuthButton";
 import { NavigationLinks } from "./NavigationLinks";
 import { createClient } from "@/utils/supabase/server";
 

@@ -7,7 +7,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { fetchQRCode } from "@/lib/actions/fetch";
-import QRCodeCard from "@/components/QrCodeCard";
+import QrCodeCard from "@/components/qrcode/QrCodeCard";
 import { ChevronLeftIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -32,12 +32,16 @@ export default async function SingleQrCodePage({
 			>
 				<ChevronLeftIcon className="size-4" /> Back to QR Codes
 			</Link>
-			<QRCodeCard qr={QRData.data} showAnalyticsButton={false} />
+			<QrCodeCard qr={QRData.data} showAnalyticsButton={false} />
 
 			<Card>
 				<CardHeader>
 					<CardTitle>Analytics</CardTitle>
 				</CardHeader>
+				<CardContent>
+					<p>Average daily scans</p>
+					<p>Last Scan time</p>
+				</CardContent>
 			</Card>
 		</div>
 	);

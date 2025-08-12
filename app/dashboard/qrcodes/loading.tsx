@@ -1,4 +1,4 @@
-import { QrCodeSkeleton } from "@/components/QRSkeleton";
+import { QrCodeSkeleton } from "@/components/qrcode/QRSkeleton";
 
 export default function Loading() {
 	// Or a custom loading skeleton component

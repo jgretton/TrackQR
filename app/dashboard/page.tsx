@@ -1,7 +1,7 @@
-import { SectionCards } from "@/components/SectionCards";
-import { SectionCardsSkeleton } from "@/components/SectionCardsSkeleton";
+import { SectionCards } from "@/components/dashboard/SectionCards";
+import { SectionCardsSkeleton } from "@/components/dashboard/SectionCardsSkeleton";
+import { DashboardChart } from "@/components/dashboard/DashboardChart";
 import { Suspense } from "react";
-import { DashboardChart } from "@/components/DashboardChart";
 
 export default async function Dashboard() {
 	return (

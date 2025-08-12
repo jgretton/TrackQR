@@ -1,4 +1,4 @@
-import CreateQrForm from "@/components/create/CreateQrForm";
+import CreateQrForm from "@/components/forms/CreateQrForm";
 import {
 	Card,
 	CardContent,

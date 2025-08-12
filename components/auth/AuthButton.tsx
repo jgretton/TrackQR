@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { LogoutButton } from "./LogoutButton";
 import type { User } from "@supabase/supabase-js";
 

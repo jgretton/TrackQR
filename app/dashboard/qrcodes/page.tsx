@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import Loading from "./loading";
-import QrCodeList from "@/components/QrCodeList";
+import QrCodeList from "@/components/qrcode/QrCodeList";
 
 export default async function QrCodesPage() {
 	return (

@@ -1,6 +1,6 @@
 import { fetchAllQRCodes } from "@/lib/actions/fetch";
-import { Button } from "./ui/button";
-import QRCodeCard from "./QrCodeCard";
+import { Button } from "@/components/ui/button";
+import { QrCodeCard } from "./QrCodeCard";
 import { FetchAllReturn } from "@/types/create";
 import Link from "next/link";
 import { PlusIcon, QrCodeIcon } from "lucide-react";
@@ -46,7 +46,7 @@ export default async function QrCodeList() {
 					</div>
 					<div className="grid gap-5 mt-10">
 						{qrcodes.data?.map((qrcode) => (
-							<QRCodeCard key={qrcode.id} qr={qrcode} />
+							<QrCodeCard key={qrcode.id} qr={qrcode} />
 						))}
 					</div>
 				</div>

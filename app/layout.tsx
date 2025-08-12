@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { AuthButton } from "@/components/auth/AuthButton";
-import { NavigationLinks } from "@/components/NavigationLinks";
-import Link from "next/link";
-import NavigationHeader from "@/components/NavigationHeader";
+import { NavigationLinks } from "@/components/layout/NavigationLinks";
+import NavigationHeader from "@/components/layout/NavigationHeader";
 
 export const metadata: Metadata = {
 	title: "TrackQR",
