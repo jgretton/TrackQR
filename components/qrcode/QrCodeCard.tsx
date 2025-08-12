@@ -29,7 +29,10 @@ interface QrCodeCardProps {
 	showAnalyticsButton?: boolean;
 }
 
-export function QRCodeCard({ qr, showAnalyticsButton }: QrCodeCardProps) {
+export default function QRCodeCard({
+	qr,
+	showAnalyticsButton,
+}: QrCodeCardProps) {
 	const {
 		id,
 		name,

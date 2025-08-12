@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { FetchAllReturn } from "@/types/create";
 import Link from "next/link";
 import { PlusIcon, QrCodeIcon } from "lucide-react";
-import { QRCodeCard } from "./QrCodeCard";
+import QRCodeCard from "./QrCodeCard";
 
 export default async function QrCodeList() {
 	const qrcodes: FetchAllReturn = await fetchAllQRCodes();
