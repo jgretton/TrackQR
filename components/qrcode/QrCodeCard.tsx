@@ -8,7 +8,6 @@ import {
 	Edit,
 	ExternalLink,
 	TimerOffIcon,
-	Trash2,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,17 +23,13 @@ import {
 	SheetTrigger,
 } from "@/components/ui/sheet";
 import { EditQrForm } from "@/components/forms/EditQrForm";
-import { handleQrDelete } from "@/lib/actions/delete";
 import { DeleteButton } from "./DeleteButton";
 interface QrCodeCardProps {
 	qr: QrCode;
 	showAnalyticsButton?: boolean;
 }
 
-export default function QRCodeCard({
-	qr,
-	showAnalyticsButton,
-}: QrCodeCardProps) {
+export function QRCodeCard({ qr, showAnalyticsButton }: QrCodeCardProps) {
 	const {
 		id,
 		name,

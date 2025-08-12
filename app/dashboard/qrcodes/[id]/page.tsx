@@ -1,11 +1,4 @@
-import { Button } from "@/components/ui/button";
-import {
-	Card,
-	CardAction,
-	CardContent,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { fetchQRCode } from "@/lib/actions/fetch";
 import QrCodeCard from "@/components/qrcode/QrCodeCard";
 import { ChevronLeftIcon } from "lucide-react";

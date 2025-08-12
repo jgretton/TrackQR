@@ -1,9 +1,11 @@
 import { unstable_cache } from "next/cache";
-import { FetchAllReturn, ChartDataReturn, DashboardDataReturn } from "@/types/create";
+import {
+	FetchAllReturn,
+	ChartDataReturn,
+	DashboardDataReturn,
+} from "@/types/create";
 import { getCachedUser } from "@/lib/auth/cached-auth";
 import { prisma } from "@/lib/prisma";
-import { success } from "zod";
-import { random } from "nanoid";
 
 // Internal cached function that takes userId as parameter
 const fetchQRCodeInternal = unstable_cache(
