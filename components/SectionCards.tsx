@@ -1,9 +1,4 @@
-import {
-	fetchDashboardData,
-	fetchTopScannedQrCode,
-	fetchTotalActiveQrCodes,
-	fetchTotalScans,
-} from "@/lib/actions/fetch";
+import { fetchDashboardData } from "@/lib/actions/fetch";
 import {
 	Card,
 	CardAction,
@@ -12,16 +7,10 @@ import {
 	CardHeader,
 	CardTitle,
 } from "./ui/card";
-
-// Total scans over all qr codes
-//highest scanning qr code.
-//graph showing total scanns over X- period
-//count for expired / inactive codes?
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 
 export async function SectionCards() {
-	// const totalScans = await fetchTotalScans();
-	// const topScanned = await fetchTopScannedQrCode();
-	// const totalActive = await fetchTotalActiveQrCodes();
 	const data = await fetchDashboardData();
 	const { totalScans, topScanned, totalActive } = data.data || {};
 	return (
@@ -48,10 +37,21 @@ export async function SectionCards() {
 					</CardTitle>
 					<CardAction></CardAction>
 				</CardHeader>
-				<CardFooter className="text-sm text-muted-foreground">
-					{topScanned?.scan_count
-						? `${topScanned.scan_count} scans`
-						: "No data yet"}
+				<CardFooter className="flex items-center justify-between">
+					<span className="text-sm text-muted-foreground">
+						{topScanned?.scan_count
+							? `${topScanned.scan_count} scans`
+							: "No data yet"}
+					</span>
+					{topScanned?.id && (
+						<Link
+							href={`dashboard/qrcodes/${topScanned.id}`}
+							className="text-sm font-medium text-primary hover:text-primary/80 flex items-center gap-1 transition-colors group hover:underline underline-offset-1"
+						>
+							View details{" "}
+							<ChevronRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
+						</Link>
+					)}
 				</CardFooter>
 			</Card>
 			<Card className="@container/card">
